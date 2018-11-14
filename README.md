@@ -29,9 +29,10 @@ g.addV('course').property(id, 'CS101').property('name', 'CS101').as('CS101').
 - `TinkerGraph.open()` creates an empty instance of a in-memory TinkerGraph with 0 vertex and 0 edge.
 - The query chains the `open()` call (which returns the empty graph instance) with `traversal()` to get the `GraphTraversalSource` instance of the graph. 
 - Since we have the traversal object, we can start adding vertices and edges. 
-- Adding a vertex takes the form of `addV('vertex type').property(id, 'course id').property('name', 'course name').as('course name')`.
+- Adding a vertex takes the form of `addV('vertex label').property(id, 'course id').property('name', 'course id').as('course id')`.
 - `id` is a special property of TinkerGraph. In TinkerGraph, directly setting the `id` values are allowed. Therefore, we set the `id` values to course IDs.
-- The `name` property is not required in this assignment. However, it can be useful if a course is cross-listed between departments. 
+- For each vertex, `as()` is used to create a reference variable to the vertex. This reference is used to create edges in a chained manner. 
+- Two types of edges are added between vertices - **'requires pre-req'** and **'is a co-req of'**. 
 
 
 
@@ -59,7 +60,7 @@ g.V('CS526').repeat(out('requires pre-req')).emit()
 - Our query begins traversal at the *CS526* vertex. 
 - `repeat()` is used to loop over a traversal. It can be used with a break predicate (an exit condition). 
 - Since no break predicate is placed on the query, it will traverse until the highest ancestor. 
-- Notice the `out('requires pre-req')` expression inside `repeat()`. This makes the traversal to object only traverse through edges that have 'requires pre-req' labels. This is to avoid double traversals between vertices that are connected by 'is a co-req of' edges. 
+- Notice the `out('requires pre-req')` expression inside `repeat()`. This makes the traversal to object only traverse through edges that have **'requires pre-req'** labels. This is to avoid double traversals between vertices that are connected by **'is a co-req of'** edges. 
 - `emit()` is a *step modulator* of `repeat()` where it emits the vertex object during traversal. In our case, the emitted vertices are logged to the console. 
 
 
