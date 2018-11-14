@@ -32,3 +32,17 @@ g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
 ```
 g.V().filter(outE().count().is(2)).as('a').out().as('b').select('a', 'b').unique()
 ```
+
+### Q3 - Output all ancestors
+
+```
+g.V('CS526').repeat(out('requires pre-req')).emit()
+```
+
+### Q4 - Find maximum depth
+
+```
+g.V('CS526').repeat(__.out()).emit().path().count(local).max()
+```
+
+TODO: find the difference between __.out() and .out
