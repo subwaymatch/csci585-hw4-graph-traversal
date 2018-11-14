@@ -58,8 +58,8 @@ g.V('CS526').repeat(out('requires pre-req')).emit()
 ```
 
 #### Explanation
-- `g.V()` is a one of the two traversal methods provided by `GraphTraversalSource` object. It generates a traversal method starting at the vertices of the graph (if no id specified - from all vertices, if an id is specified - from the specified vertex). 
-- Our query begins traversal at the *CS526* vertex since we specified the id when calling `g.V('CS526')`. 
+- `g.V()` is a one of the two traversal methods provided by `GraphTraversalSource` object. It generates a traversal method starting at the vertices of the graph (if no `id` specified - from all vertices, if an `id` is specified - from the specified vertex). 
+- Our query begins traversal at the *CS526* vertex since we specified the `id` when calling `g.V('CS526')`. 
 - `repeat()` is used to loop over a traversal. It can be used with a break predicate (an exit condition). 
 - Since no break predicate is placed on the query, it will traverse until the highest ancestor. 
 - Notice the `out('requires pre-req')` expression inside `repeat()`. This makes the traversal to object only traverse through edges that have **'requires pre-req'** label. This is to avoid double traversals between vertices that are connected by **'is a co-req of'** edges. 
