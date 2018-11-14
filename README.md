@@ -32,7 +32,9 @@ g.addV('course').property(id, 'CS101').property('name', 'CS101').as('CS101').
 - Adding a vertex takes the form of `addV('vertex label').property(id, 'course id').property('name', 'course id').as('course id')`.
 - `id` is a special property of TinkerGraph. In TinkerGraph, directly setting the `id` values are allowed. Therefore, we set the `id` values to course IDs.
 - For each vertex, `as()` is used to create a reference variable to the vertex. This reference is used to create edges in a chained manner. 
-- Two types of edges are added between vertices - **'requires pre-req'** and **'is a co-req of'**. 
+- Two types of edges are added between vertices - **'requires pre-req'** and **'is a co-req of'**. These types are differentiated by edge labels.  
+- Adding an edge takes the form of `addE('edge label').from('vertex reference').to('vertex reference')`.
+- All `addV()` and `addE()` calls are chained together. This is possible since each call returns the graph traversal object `g`. 
 
 
 
