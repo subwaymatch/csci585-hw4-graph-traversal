@@ -34,22 +34,44 @@ g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
 - The `name` property is not required in this assignment. However, it can be useful if a course is cross-listed between departments. 
 
 
+
 ### Q2 - Find doubly-connected nodes
 
+#### Query
 ```
 g.V().as('a').out().as('b').groupCount().by(select('a', 'b')).unfold().filter(select(values).is(eq(2))).select(keys)
 ```
 
+#### Explanation
+- 
+
+
+
 ### Q3 - Output all ancestors
 
+#### Query
 ```
 g.V('CS526').repeat(out('requires pre-req')).emit()
 ```
 
+#### Explanation
+- `g.V()` is a one of the two traversal methods provided by `GraphTraversalSource` object. It generates a traversal method starting at the vertices of the graph (if no id specified - from all vertices, if an id is specified - from the specified vertex). 
+- Our query begins traversal at the *CS526* vertex. 
+- `repeat()` is used to loop over a traversal. It can be used with a break predicate (an exit condition). 
+- Since no break predicate is placed on the query, it will traverse until the highest ancestor. 
+- Notice the `out('requires pre-req')` expression inside `repeat()`. This makes the traversal to object only traverse through edges that have 'requires pre-req' labels. This is to avoid double traversals between vertices that are connected by 'is a co-req of' edges. 
+- `emit()` is a *step modulator* of `repeat()` where it emits the vertex object during traversal. In our case, the emitted vertices are logged to the console. 
+
+
+
 ### Q4 - Find maximum depth
 
+#### Query
 ```
 g.V('CS526').repeat(__.out()).emit().path().count(local).max()
 ```
 
 TODO: find the difference between __.out() and out()
+
+#### Explanation
+- 
