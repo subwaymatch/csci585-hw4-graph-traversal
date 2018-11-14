@@ -4,26 +4,25 @@
 
 #### Creating directly from the command line
 ```
-graph = TinkerGraph.open()
-g = graph.traversal()
+g = TinkerGraph.open().traversal()
 
-g.addV("course").property(id, 101).property("name", "cs101").as("cs101").
-  addV("course").property(id, 201).property("name", "cs201").as("cs201").
-  addV("course").property(id, 220).property("name", "cs220").as("cs220").
-  addV("course").property(id, 420).property("name", "cs420").as("cs420").
-  addV("course").property(id, 334).property("name", "cs334").as("cs334").
-  addV("course").property(id, 681).property("name", "cs681").as("cs681").
-  addV("course").property(id, 400).property("name", "cs400").as("cs400").
-  addV("course").property(id, 526).property("name", "cs526").as("cs526").
-  addE("requires pre-req").from("cs201").to("cs101").
-  addE("requires pre-req").from("cs220").to("cs201").
-  addE("requires pre-req").from("cs420").to("cs220").
-  addE("is a co-req of").from("cs420").to("cs220").
-  addE("requires pre-req").from("cs334").to("cs201").
-  addE("requires pre-req").from("cs681").to("cs334").
-  addE("requires pre-req").from("cs400").to("cs334").
-  addE("requires pre-req").from("cs526").to("cs400").
-  addE("is a co-req of").from("cs526").to("cs400")
+g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
+  addV("course").property(id, "CS201").property("name", "CS201").as("CS201").
+  addV("course").property(id, "CS220").property("name", "CS220").as("CS220").
+  addV("course").property(id, "CS420").property("name", "CS420").as("CS420").
+  addV("course").property(id, "CS334").property("name", "CS334").as("CS334").
+  addV("course").property(id, "CS681").property("name", "CS681").as("CS681").
+  addV("course").property(id, "CS400").property("name", "CS400").as("CS400").
+  addV("course").property(id, "CS526").property("name", "CS526").as("CS526").
+  addE("requires pre-req").from("CS201").to("CS101").
+  addE("requires pre-req").from("CS220").to("CS201").
+  addE("requires pre-req").from("CS420").to("CS220").
+  addE("is a co-req of").from("CS420").to("CS220").
+  addE("requires pre-req").from("CS334").to("CS201").
+  addE("requires pre-req").from("CS681").to("CS334").
+  addE("requires pre-req").from("CS400").to("CS334").
+  addE("requires pre-req").from("CS526").to("CS400").
+  addE("is a co-req of").from("CS526").to("CS400")
 
 ```
 
@@ -31,5 +30,5 @@ g.addV("course").property(id, 101).property("name", "cs101").as("cs101").
 ### Q2 - Find doubly-connected nodes
 
 ```
-g.V().filter(outE().count(0.is(2)).as('a').out().as('b').select('a', 'b')
+g.V().filter(outE().count().is(2)).as('a').out().as('b').select('a', 'b').unique()
 ```
