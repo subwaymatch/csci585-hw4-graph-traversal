@@ -1,8 +1,8 @@
-# csci585-hw4-graph-traversal
+# Gremlin Graph Traversal
 
 ### Q1 - Creating a graph
 
-#### Creating directly from the command line
+#### Query
 ```
 g = TinkerGraph.open().traversal()
 
@@ -23,8 +23,12 @@ g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
   addE("requires pre-req").from("CS400").to("CS334").
   addE("requires pre-req").from("CS526").to("CS400").
   addE("is a co-req of").from("CS526").to("CS400")
-
 ```
+
+#### Explanation
+- `TinkerGraph.open()` creates an empty instance of a in-memory TinkerGraph with 0 vertex and 0 edge.
+- The query chains the `open()` call (which returns the empty graph instance) with `traversal()` to get the `GraphTraversalSource` instance of the graph. 
+- Since we have the traversal object, we can start adding vertices and edges. 
 
 
 ### Q2 - Find doubly-connected nodes
