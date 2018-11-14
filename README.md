@@ -45,4 +45,4 @@ g.V('CS526').repeat(out('requires pre-req')).emit()
 g.V('CS526').repeat(__.out()).emit().path().count(local).max()
 ```
 
-TODO: find the difference between __.out() and .out
+TODO: find the difference between __.out() and out()
