@@ -29,6 +29,9 @@ g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
 - `TinkerGraph.open()` creates an empty instance of a in-memory TinkerGraph with 0 vertex and 0 edge.
 - The query chains the `open()` call (which returns the empty graph instance) with `traversal()` to get the `GraphTraversalSource` instance of the graph. 
 - Since we have the traversal object, we can start adding vertices and edges. 
+- Adding a vertex takes the form of `addV('vertex type').property(id, 'course id').property('name', 'course name').as('course name')`.
+- `id` property is a special property of TinkerGraph. In other graph databases, it won't support directly setting the value. However, this example sets the `id`s to course IDs for easier reference. 
+- The `name` property is not required in this assignment. However, it can be useful if a course is cross-listed between departments. 
 
 
 ### Q2 - Find doubly-connected nodes
