@@ -30,7 +30,7 @@ g.addV("course").property(id, "CS101").property("name", "CS101").as("CS101").
 ### Q2 - Find doubly-connected nodes
 
 ```
-g.V().filter(outE().count().is(2)).as('a').out().as('b').select('a', 'b').unique()
+g.V().as('a').out().as('b').groupCount().by(select('a', 'b')).unfold().filter(select(values).is(eq(2))).select(keys)
 ```
 
 ### Q3 - Output all ancestors
