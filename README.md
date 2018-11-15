@@ -1,8 +1,11 @@
-# Gremlin Graph Traversal
+# CSCI 585 HW 4 - Graph Traversal
+**Submitter:** Ye Joo Park (USC# 1128685151)<br>
+**USCID:** yejoopar@usc.edu<br><br>
+This report was written in Github-flavored markdown. 
 
-### Q1 - Creating a graph
+## Q1 - Creating a graph
 
-#### Query
+### Query
 ```
 g = TinkerGraph.open().traversal()
 
@@ -25,13 +28,13 @@ g.addV('course').property(id, 'CS101').as('CS101').
   addE('is a co-req of').from('CS526').to('CS400')
 ```
 
-#### Check Result
+### Check Result
 ```
 gremlin> g
 ==>graphtraversalsource[tinkergraph[vertices:8 edges:9], standard]
 ```
 
-#### Explanation
+### Explanation
 - `TinkerGraph.open()` creates an empty instance of a in-memory TinkerGraph with 0 vertex and 0 edge.
 - The query chains the `open()` call (which returns the empty graph instance) with `traversal()` to get the `GraphTraversalSource` instance of the graph. 
 - Since we have the traversal object, we can start adding vertices and edges. 
@@ -44,9 +47,9 @@ gremlin> g
 
 
 
-### Q2 - Find doubly-connected vertices
+## Q2 - Find doubly-connected vertices
 
-#### Query
+### Query
 ```
 g.V().as('a').out().as('b').
   groupCount().by(select('a', 'b')).
@@ -55,13 +58,13 @@ g.V().as('a').out().as('b').
   select(keys)
 ```
 
-#### Output
+### Output
 ```
 ==>[a:v[CS526],b:v[CS400]]
 ==>[a:v[CS420],b:v[CS220]]
 ```
 
-#### Explanation
+### Explanation
 - `g.V()` is a one of the two traversal methods provided by `GraphTraversalSource` object. It generates a traversal method starting at the vertices of the graph (if no `id` specified - from all vertices, if an `id` is specified - from the specified vertex). 
 - In the query above, traversals start at all vertices. 
 - `g.V().as('a')` creates a step label **'a'** to all incoming vertices.
@@ -90,14 +93,14 @@ Note that an iterator is returned, but the gremlin console iterates and print ou
 
 
 
-### Q3 - Output all ancestors of a given vertex
+## Q3 - Output all ancestors of a given vertex
 
-#### Query
+### Query
 ```
 g.V('CS526').repeat(__.out('requires pre-req')).emit()
 ```
 
-#### Output
+### Output
 ```
 ==>v[CS400]
 ==>v[CS334]
@@ -105,7 +108,7 @@ g.V('CS526').repeat(__.out('requires pre-req')).emit()
 ==>v[CS101]
 ```
 
-#### Explanation
+### Explanation
 - As explained in **Q2**, `g.V('vertex id')` generates a traversal method starting at the *vertex id*. In the query above, the traversal method starts traversing at **CS526** vertex since we specified the `id` when calling `g.V('CS526')`. 
 - `repeat()` is used to loop over a traversal. It can be used with a break predicate (an exit condition). In the query above, there is no exit condition. This will loop until no more traversal path is found. 
 - The `__.out()` call represents an anonymous traversal towards outgoing vertices. It is used when passing a traversal as an argument to a parent step. Note that `__.` is not required in the gremlin console for `__.out()`. However, it is added here for clarity.  
@@ -115,9 +118,9 @@ g.V('CS526').repeat(__.out('requires pre-req')).emit()
 
 
 
-### Q4 - Find maximum depth starting from a given vertex
+## Q4 - Find maximum depth starting from a given vertex
 
-#### Query
+### Query
 ```
 g.withSack(1).
   V('CS101').
@@ -129,12 +132,12 @@ g.withSack(1).
   max()
 ```
 
-#### Output
+### Output
 ```
 ==>5
 ```
 
-#### Explanation
+### Explanation
 - A **sack** is a data structure relative to each traverser. 
 - Since a **sack** is relative to each traverser, each traversal path will contain its own **sack**, enabling an easier data aggregation. 
 - Without a **sack**, the traversal object would have to emit all paths, and perform reduction. An example of this type of query is `g.V('CS101').repeat(__.in('requires pre-req')).emit().path().count(local).max()`. However, using a **sack** is more efficient. 
