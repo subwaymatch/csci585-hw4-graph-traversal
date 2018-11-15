@@ -6,7 +6,7 @@ This report was written in Github-flavored markdown.
 ## Q1 - Creating a graph
 
 ### Query
-```
+```groovy
 g = TinkerGraph.open().traversal()
 
 g.addV('course').property(id, 'CS101').as('CS101').
@@ -50,7 +50,7 @@ gremlin> g
 ## Q2 - Find doubly-connected vertices
 
 ### Query
-```
+```groovy
 g.V().as('a').out().as('b').
   groupCount().by(select('a', 'b')).
   unfold().
@@ -96,7 +96,7 @@ Note that an iterator is returned, but the gremlin console iterates and print ou
 ## Q3 - Output all ancestors of a given vertex
 
 ### Query
-```
+```groovy
 g.V('CS526').repeat(__.out('requires pre-req')).emit()
 ```
 
@@ -121,7 +121,7 @@ g.V('CS526').repeat(__.out('requires pre-req')).emit()
 ## Q4 - Find maximum depth starting from a given vertex
 
 ### Query
-```
+```groovy
 g.withSack(1).
   V('CS101').
   repeat(__.in('requires pre-req').
