@@ -87,8 +87,9 @@ Note that an iterator is returned, but the gremlin console iterates and print ou
 ==>{a=v[CS201], b=v[CS101]}=1
 ==>{a=v[CS220], b=v[CS201]}=1
 ```
-- What do we want? **Doubly-connected nodes**. When do we want it? Now, of course. `filter(select(values).is(eq(2))).` only filters the 
-**Vertex Pair : Count** values where count is equal to 2. 
+- What do we want? **Doubly-connected nodes**. When do we want it? Now! `filter(select(values).is(eq(2))).` only filters the 
+**Vertex Pair : Count** values where count is equal to 2. This refers to the doubly-connected nodes. 
+- Note that this only finds pairs that have a double edge **in the same direction**. If one edge points from vertex A to B and another edge points from vertex B to A, the pair will not be counted as doubly-connected nodes.
 - In the **Vertex Pair : Count** key-pair, we only want the vertex pairs. `select(keys)` will return those vertex pairs. 
 
 
